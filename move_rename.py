@@ -11,9 +11,9 @@ from typing import List
 
 
 # 定数: ディレクトリ名とラベル文字列（ハードコード回避）
-DATASET_ROOT = "DataSet"
-GESTURE_DIR_NAME = "D2U"
-GESTURE_LABEL = "down2up"
+DATASET_ROOT = "RawData"
+GESTURE_DIR_NAME = "CWT"
+GESTURE_LABEL = "cw_twirl"
 DEFAULT_TARGET_DIR = f"{DATASET_ROOT}/{GESTURE_DIR_NAME}"
 
 PATTERN = re.compile(rf"^(\d+)(?:\.(\d+))?_{GESTURE_LABEL}(\.[^.]+)?$")

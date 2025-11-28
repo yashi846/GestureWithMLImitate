@@ -9,10 +9,11 @@ from typing import List, Dict
 RAWDATA_ROOT = "RawData"
 OUTPUT_ROOT = "DataSet"
 GESTURE_CONFIGS = [
-    {"dir_name": "R2L", "label": "right2left"},
-    {"dir_name": "L2R", "label": "left2right"},
-    {"dir_name": "U2D", "label": "up2down"},
-    {"dir_name": "D2U", "label": "down2up"},
+    # {"dir_name": "R2L", "label": "right2left"},
+    # {"dir_name": "L2R", "label": "left2right"},
+    # {"dir_name": "U2D", "label": "up2down"},
+    # {"dir_name": "D2U", "label": "down2up"},
+    {"dir_name": "None", "label": "none"},
 ]
 
 # CSVカラム名（featuresの各要素に対応）

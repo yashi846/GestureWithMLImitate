@@ -109,6 +109,7 @@ def main():
 
     print(f"特徴次元: {features.shape[1]} データ数: {features.shape[0]}")
     print(f"クラス一覧 ({len(classes)}): {classes}")
+    print(f"第1層のノード数: {HIDDEN_LAYER_SIZES[0]} 第2層のノード数: {HIDDEN_LAYER_SIZES[1]}")
     
     # 3) 学習データとテストデータに分割 
     # stratifyはクラスの比率を学習データとテストデータで保つために指定している

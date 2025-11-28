@@ -95,6 +95,7 @@ def main() -> int:
     print(f"平均: {mean:.6g}")
     print(f"不偏標準偏差: {std_unbiased:.6g}")
     print(f"約95%の範囲: {mean-std_unbiased*2:.6g} ~ {mean+std_unbiased*2:.6g}")
+    print(f"約70%の範囲: {mean-std_unbiased*1:.6g} ~ {mean+std_unbiased*1:.6g}")
     print(f"ヒストグラム保存先: {OUTPUT_FIG_PATH}")
     return 0
 

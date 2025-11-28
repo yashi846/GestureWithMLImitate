@@ -14,12 +14,12 @@ FILE_GLOB = "*.csv"
 WT_DOPPLER_COL = "wtDoppler"
 
 # 判定範囲（例: -1.0 ~ 1.0）。実行前に設定してください。
-RANGE_MIN: float = -3.40221  # 例: -1.0
-RANGE_MAX: float = 2.36933  # 例:  1.0
+RANGE_MIN: float =  -1.95933  # 例: -1.0
+RANGE_MAX: float = 0.926441 # 例:  1.0
 INCLUSIVE: bool = True  # True: [min, max] を除外, False: (min, max) を除外
 
 # I/O
-ENCODING = "utf-8-sig"
+ENCODING = "utf-8"
 NEWLINE = ""
 
 # ========== 実装 ==========

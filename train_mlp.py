@@ -26,7 +26,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
 
-AGGREGATED_CSV_PATH = Path("DataSet/Aggregated/DataSet_aggregated_demonstration.csv")
+AGGREGATED_CSV_PATH = Path("DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv")
 FEATURES: Sequence[str] = [
     "wtDoppler",
     "wtRange",

@@ -9,7 +9,7 @@ from typing import Dict, List
 # ==========================
 
 # 入力データルート
-DATASET_ROOT = Path("DataSet")
+DATASET_ROOT = Path("DataSet/RemoveNone")
 
 # 15行を1行にまとめるチャンクサイズ
 CHUNK_SIZE = 15
@@ -45,7 +45,7 @@ LABEL_MAPPING: Dict[str, str] = {
 }
 
 # 出力ファイルパス
-OUTPUT_FILE = Path("DataSet/Aggregated/DataSet_aggregated_demonstration.csv")
+OUTPUT_FILE = Path("DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv")
 
 
 def list_class_dirs(root: Path) -> List[Path]:

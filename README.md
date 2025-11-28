@@ -4,15 +4,14 @@
 
 ## 概要
 
-IWR6843 AOPのデモ Gesture with Machine Learningを元にして
-ジェスチャ認識の機械学習を行うプロジェクトです。
-
+IWR6843 AOP のデモ Gesture with Machine Learning を元にしてジェスチャ認識の機械学習を行うプロジェクト
 
 ## ディレクトリ構成
 
 ```
 .
 ├── RawData/              # 生のJSONデータ
+│   ├── None/            # No Gesture (ジェスチャなし)
 │   ├── R2L/             # Right to Left (右から左)
 │   ├── L2R/             # Left to Right (左から右)
 │   ├── U2D/             # Up to Down (上から下)
@@ -22,11 +21,28 @@ IWR6843 AOPのデモ Gesture with Machine Learningを元にして
 │   ├── Push/            # Push (押す)
 │   ├── Pull/            # Pull (引く)
 │   └── Shine/           # Shine (光る)
-├── DataSet/             # 変換後のCSVデータ
+├── DataSet/             # 生データを変換したCSVデータ
+│   ├── None/
 │   ├── R2L/
 │   ├── L2R/
 │   ├── U2D/
-│   └── D2U/
+│   ├── D2U/
+│   ├── CWT/
+│   ├── CCWT/
+│   ├── Push/
+│   ├── Pull/
+│   ├── Shine/
+│   ├── Aggregated/      # データセットを1つのファイルにまとめたデータ
+│   └── ExtractGesture/      # ジェスチャーをしている最中を抽出したデータ
+│       ├── R2L/
+│       ├── L2R/
+│       ├── U2D/
+│       ├── D2U/
+│       ├── CWT/
+│       ├── CCWT/
+│       ├── Push/
+│       ├── Pull/
+│       └── Shine/
 └── ProcessedData/       # 処理済みデータ（出力先）
 ```
 
@@ -34,35 +50,107 @@ IWR6843 AOPのデモ Gesture with Machine Learningを元にして
 
 ### CSV 出力形式
 
-| カラム名      | 説明                     | features 配列のインデックス |
-| ------------- | ------------------------ | --------------------------- |
-| wtDoppler     | ドップラー               | features[0]                 |
-| wtDopplerPos  | 正のドップラー           | features[1]                 |
-| wtDopplerNeg  | 負のドップラー           | features[2]                 |
-| wtRange       | レンジ                   | features[3]                 |
-| numDetections | 検出数                   | features[4]                 |
-| wtAzimuthMean | 方位角平均               | features[5]                 |
-| wtElevMean    | 仰角平均                 | features[6]                 |
-| azDoppCorr    | 方位角ドップラー相関     | features[7]                 |
-| wtAzimuthStd  | 方位角標準偏差           | features[8]                 |
-| wtdElevStd    | 仰角標準偏差             | features[9]                 |
-| label         | ジェスチャラベル（整数） | -                           |
-
-### ラベル対応表
-
-| ジェスチャ     | ラベル値 |
-| -------------- | -------- |
-| R2L (右から左) | 0        |
-| L2R (左から右) | 1        |
-| U2D (上から下) | 2        |
-| D2U (下から上) | 3        |
+| カラム名      | 説明                 |
+| ------------- | -------------------- |
+| wtDoppler     | ドップラー           |
+| wtDopplerPos  | 正のドップラー       |
+| wtDopplerNeg  | 負のドップラー       |
+| wtRange       | レンジ               |
+| numDetections | 検出数               |
+| wtAzimuthMean | 方位角平均           |
+| wtElevMean    | 仰角平均             |
+| azDoppCorr    | 方位角ドップラー相関 |
+| wtAzimuthStd  | 方位角標準偏差       |
+| wtdElevStd    | 仰角標準偏差         |
+| label         | ジェスチャラベル     |
 
 ## スクリプト
+
+### move_rename.py
+
+IWR6843 AOP の測定で得たデータを移動させ、規則的な命名規則にリネームします。
+
+**オプション:**
+
+- `--collect-from`: 移動元ディレクトリを指定
+
+**使用方法:**
+
+```bash
+python move_rename.py --collect-from <ソースディレクトリ>
+```
+
+**命名規則:**
+
+- 単一ファイル: `{n}.0_{gesture}.json`
+- 複数ファイル: `{n}.0_{gesture}.json`, `{n}.1_{gesture}.json`, ...
 
 ### convert_json_to_csv.py
 
 JSON ファイルを CSV 形式に変換します。
+RawData 内の JSON ファイルを DataSet ディレクトリに CSV として出力します。
 
-### rename_l2r.py
+### analyze_wt_doppler.py
 
-IWR6843 AOPの測定で得たデータのディレクトリ内のファイルを移動させ、規則的な命名規則にリネームします。
+wtDoppler データの統計分析を行い、ヒストグラムを生成します。
+
+**機能:**
+
+- DataSet/None 内の全 CSV ファイルから wtDoppler データを収集
+- 平均、不偏標準偏差を計算
+- ヒストグラムを生成
+
+**出力:**
+
+- `DataSet/Aggregated/wtDoppler_hist.png`: ヒストグラム画像
+- 統計情報（平均、標準偏差、95%/70%範囲）をコンソール出力
+
+### extract_gesture_moments.py
+
+CSV データからジェスチャが実際に行われている瞬間を抽出します。
+
+**機能:**
+
+- numDetections が閾値以上の連続区間を検出
+- 抽出したデータを DataSet/ExtractGesture に出力
+
+### aggregate_csv.py
+
+DataSet 内の各ジェスチャディレクトリの CSV ファイルを 1 つのファイルに統合します。
+
+**機能:**
+
+- 各ジェスチャディレクトリ内の全 CSV を結合
+- 統合ファイルを DataSet/Aggregated に出力
+
+### train_mlp.py
+
+集約されたデータセットを多層パーセプトロン(MLP)で学習します。
+
+**機能:**
+
+1. 集約済み CSV を読み込み
+2. ラベルをダミー変数に変換
+3. 学習データとテストデータに分割
+4. 特徴量を標準化
+5. MLP で学習
+6. テストデータで精度を評価
+7. Classification Report と Confusion Matrix を出力
+
+## 開発環境
+
+### Formatter/Linter
+
+Ruff を使用
+
+**フォーマット:**
+
+```bash
+ruff format
+```
+
+**Lint:**
+
+```bash
+ruff check
+```

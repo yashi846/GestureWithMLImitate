@@ -7,11 +7,13 @@ from pathlib import Path
 from typing import Dict, List
 
 
-DATASET_ROOT = Path("DataSet/RemoveNone")
-OUTPUT_FILE = Path("DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv")
+DATASET_ROOT = Path("DataSet/ExtractGesture")
+OUTPUT_FILE = Path(
+    "DataSet/Aggregated/DataSet_aggregated_1frame_demo_remove_none_1s.csv"
+)
 
 
-FRAME_SIZE = 15
+FRAME_SIZE = 1
 FEATURE_COLUMNS: List[str] = [
     "wtDoppler",
     # "wtDopplerPos",

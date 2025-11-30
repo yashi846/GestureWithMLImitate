@@ -33,3 +33,8 @@ priority = "explicit"
 torchvision = {source = "pytorch_cu130"}
 torchaudio = {source = "pytorch_cu130"}
 torch = {source = "pytorch_cu130"}
+
+[dependency-groups]
+dev = [
+    "dvc (>=3.64.0,<4.0.0)"
+]

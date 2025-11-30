@@ -37,5 +37,7 @@ torch = {source = "pytorch_cu130"}
 [dependency-groups]
 dev = [
     "dvc (>=3.64.0,<4.0.0)",
-    "dvc-gdrive (>=3.0.1,<4.0.0)"
+    "dvc-gdrive (>=3.0.1,<4.0.0)",
+    "pyopenssl (>=25.3.0,<26.0.0)",
+    "cryptography (>=46.0.3,<47.0.0)"
 ]

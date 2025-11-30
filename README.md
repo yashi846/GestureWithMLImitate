@@ -10,47 +10,45 @@ IWR6843 AOP のデモ Gesture with Machine Learning を元にしてジェスチ�
 
 ```
 .
-├── RawData/              # 生のJSONデータ
-│   ├── None/            # No Gesture (ジェスチャなし)
-│   ├── R2L/             # Right to Left (右から左)
-│   ├── L2R/             # Left to Right (左から右)
-│   ├── U2D/             # Up to Down (上から下)
-│   ├── D2U/             # Down to Up (下から上)
-│   ├── CWT/             # Clockwise Turn (時計回り)
-│   ├── CCWT/            # Counter Clockwise Turn (反時計回り)
-│   ├── Push/            # Push (押す)
-│   ├── Pull/            # Pull (引く)
-│   └── Shine/           # Shine (光る)
-├── DataSet/             # 生データを変換したCSVデータ
-│   ├── None/
-│   ├── R2L/
-│   ├── L2R/
-│   ├── U2D/
-│   ├── D2U/
-│   ├── CWT/
-│   ├── CCWT/
-│   ├── Push/
-│   ├── Pull/
-│   ├── Shine/
-│   ├── Aggregated/      # データセットを1つのファイルにまとめたデータ
-│   └── ExtractGesture/      # ジェスチャーをしている最中を抽出したデータ
-│       ├── R2L/
-│       ├── L2R/
-│       ├── U2D/
-│       ├── D2U/
-│       ├── CWT/
-│       ├── CCWT/
-│       ├── Push/
-│       ├── Pull/
-│       └── Shine/
-└── ProcessedData/       # 処理済みデータ（出力先）
+├── .dvc/                # DVC設定ファイル
+├── .vscode/             # VSCode設定
+├── data/                # データディレクトリ（DVCで管理）
+│   ├── RawData/        # 生のJSONデータ
+│   ├── DataSet/        # 生データを変換したCSVデータ
+│   │   ├── Aggregated/ # データセットを1つのファイルにまとめたデータ
+│   │   └── ExtractGesture/ # ジェスチャーをしている最中を抽出したデータ
+├── src/                # ソースコード
+│   ├── models/ # 機械学習のモデルのスクリプト
+│   ├── preprocessing/ # データの前処理のスクリプト
+├── .gitignore
+├── .python-version
+├── dvc.yaml            # DVCパイプライン定義
+├── pyproject.toml      # Poetry設定ファイル
+├── poetry.lock
+├── ruff.toml           # Ruff設定ファイル
+└── README.md
 ```
 
-## データ形式
+## 略語の説明
 
-### CSV 出力形式
+### ジェスチャの種類
 
-| カラム名      | 説明                 |
+| ジェスチャ名 | 説明                                |
+| ------------ | ----------------------------------- |
+| None         | No Gesture (ジェスチャなし)         |
+| R2L          | Right to Left (右から左)            |
+| L2R          | Left to Right (左から右)            |
+| U2D          | Up to Down (上から下)               |
+| D2U          | Down to Up (下から上)               |
+| CWT          | Clockwise Turn (時計回り)           |
+| CCWT         | Counter Clockwise Turn (反時計回り) |
+| Push         | Push (押す)                        |
+| Pull         | Pull (引く)                        |
+| Shine        | Shine (グーパー)                    |
+
+### 特徴量の種類
+
+| 特徴量      | 説明                 |
 | ------------- | -------------------- |
 | wtDoppler     | ドップラー           |
 | wtDopplerPos  | 正のドップラー       |
@@ -181,4 +179,26 @@ ruff check
 
 ### パッケージマネージャー
 
-poetryを使用
+poetry を使用
+
+### データ管理
+
+大規模データのバージョン管理に DVC を使用
+
+### DVC の基本コマンド
+
+```bash
+# データのトラッキング
+dvc add data/
+
+# リモートストレージへのプッシュ
+dvc push
+
+# リモートストレージからの取得
+dvc pull
+
+# トラッキング中のデータの状態確認
+dvc status
+```
+
+**注意:** `data/` ディレクトリは DVC で管理されているため、Git には `.dvc` ファイルのみがコミットされます。実際のデータファイルは `.gitignore` で除外されています.

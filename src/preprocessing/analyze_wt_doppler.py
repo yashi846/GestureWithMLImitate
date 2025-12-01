@@ -11,8 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-DATA_DIR = Path("./DataSet/None")
-OUTPUT_DIR = Path("./DataSet/Aggregated")
+DATA_DIR = Path("../../data/DataSet/None")
+OUTPUT_DIR = Path("../../data/DataSet/Aggregated")
 OUTPUT_FIG_PATH = Path(f"{OUTPUT_DIR}/wtDoppler_hist.png")
 HIST_BINS = "fd"  # Freedman–Diaconis estimator
 FIG_SIZE = (8, 5)

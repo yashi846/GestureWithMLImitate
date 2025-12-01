@@ -9,8 +9,8 @@ from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict
 
-RAWDATA_ROOT = Path("RawData")
-OUTPUT_ROOT = Path("DataSet")
+RAWDATA_ROOT = Path("../../data/RawData")
+OUTPUT_ROOT = Path("../../data/DataSet")
 
 # labelはファイル名のプレフィックスを除いた部分
 GESTURE_CONFIGS = [

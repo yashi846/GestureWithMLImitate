@@ -10,7 +10,7 @@ from pathlib import Path
 import shutil
 
 
-DATASET_ROOT = Path("RawData")
+DATASET_ROOT = Path("../../RawData")
 GESTURE_DIR_NAME = "None"
 GESTURE_LABEL = "none"
 DEFAULT_TARGET_DIR = Path(f"{DATASET_ROOT}/{GESTURE_DIR_NAME}")

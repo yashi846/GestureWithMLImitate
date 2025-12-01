@@ -8,8 +8,8 @@ import csv
 from pathlib import Path
 from typing import Tuple
 
-INPUT_ROOT = "./DataSet"
-OUTPUT_ROOT = "./DataSet/RemoveNone"
+INPUT_ROOT = "../../data/DataSet"
+OUTPUT_ROOT = "../../DataSet/RemoveNone"
 
 SUBFOLDERS = ("D2U", "L2R", "R2L", "U2D")
 WT_DOPPLER_COL = "wtDoppler"

@@ -51,12 +51,10 @@ def objective(trial):
     X = scaler.fit_transform(X)
 
     # Kernel: RBF
-    # C: 正則化の強さ 
-    svc_c = trial.suggest_float(
-        "C", 1e-3, 1e3, log=True
-    )  
+    # C: 正則化の強さ
+    svc_c = trial.suggest_float("C", 1e-3, 1e3, log=True)
     # γ: 境界線の複雑さ
-    svc_gamma = trial.suggest_float("gamma", 1e-4, 1e1, log=True)  
+    svc_gamma = trial.suggest_float("gamma", 1e-4, 1e1, log=True)
 
     clf = SVC(C=svc_c, gamma=svc_gamma, kernel="rbf", random_state=42)
 
@@ -67,7 +65,6 @@ def objective(trial):
 
 
 if __name__ == "__main__":
-
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=N_TRIALS)
 

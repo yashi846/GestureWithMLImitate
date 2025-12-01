@@ -151,13 +151,31 @@ Prototypical Networks を用いて MLP で埋め込みを学習し、評価・�
 
 **機能:**
 
-1. 集約済み CSV を読み込み（DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv）
+1. 集約済み CSV を読み込み
 2. 特徴量標準化・ラベルエンコード
 3. エピソードサンプリング（N-WAY クラスから support/query 抽出）
 4. MLP エンコーダで埋め込み生成
 5. プロトタイプ（support 平均）と距離で分類
 6. 探索とプルーニング
 7. ベスト設定で再学習し Classification Report と Confusion Matrix を出力
+
+### train_svm.py
+
+SVM を用いて学習し、評価・最適化を行います。
+
+**最適化対象:**
+
+- C (正則化パラメータ)
+- γ
+
+**機能:**
+
+1. 集約済み CSV を読み込み
+2. 特徴量標準化・ラベルエンコード
+3. SVMとCross Validationを行う
+6. 探索とプルーニング
+7. ベスト設定で再学習し Classification Report と Confusion Matrix を出力
+
 
 ## 開発環境
 

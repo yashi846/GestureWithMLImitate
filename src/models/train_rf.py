@@ -1,15 +1,18 @@
 """
-SVMで学習を行うスクリプト
+Random Forestで学習を行うスクリプト
 以下のパラメータを最適化する
-- C: コストパラメータ
-- γ: RBFカーネルのパラメータ
+- n_estimators : 森の中の木の数
+- max_depth : 木の最大の深さ
+- min_samples_split : 内部ノードを分割するために必要な最小サンプル数
+- min_samples_leaf : 葉ノードに必要な最小サンプル数
 """
 
 import pandas as pd
+import numpy as np
 from pathlib import Path
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import optuna
 
@@ -30,7 +33,6 @@ N_TRIALS = 100
 def load_data():
     df = pd.read_csv(CSV_PATH)
 
-    # 90次元の特徴量カラム名を作成
     feature_cols = [f"{feat}_{i}" for i in range(FRAME_SIZE) for feat in FEATURES]
 
     X = df[feature_cols].values
@@ -48,13 +50,19 @@ def objective(trial):
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
 
-    # Kernel: RBF
-    # C: 正則化の強さ
-    svc_c = trial.suggest_float("C", 1e-3, 1e3, log=True)
-    # γ: 境界線の複雑さ
-    svc_gamma = trial.suggest_float("gamma", 1e-4, 1e1, log=True)
+    n_estimators = trial.suggest_int("n_estimators", 50, 300)
+    max_depth = trial.suggest_int("max_depth", 3, 20)
+    min_samples_split = trial.suggest_int("min_samples_split", 2, 10)
+    min_samples_leaf = trial.suggest_int("min_samples_leaf", 1, 5)
 
-    clf = SVC(C=svc_c, gamma=svc_gamma, kernel="rbf", random_state=42)
+    clf = RandomForestClassifier(
+        n_estimators=n_estimators,
+        max_depth=max_depth,
+        min_samples_split=min_samples_split,
+        min_samples_leaf=min_samples_leaf,
+        random_state=42,
+        n_jobs=-1,
+    )
 
     # 交差検証
     scores = cross_val_score(clf, X, y, n_jobs=-1, cv=5)
@@ -84,12 +92,13 @@ if __name__ == "__main__":
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    model = SVC(
-        C=best_params["C"],
-        gamma=best_params["gamma"],
-        kernel="rbf",
-        probability=True,
+    model = RandomForestClassifier(
+        n_estimators=best_params["n_estimators"],
+        max_depth=best_params["max_depth"],
+        min_samples_split=best_params["min_samples_split"],
+        min_samples_leaf=best_params["min_samples_leaf"],
         random_state=42,
+        n_jobs=-1,
     )
     model.fit(X_train, y_train)
 
@@ -100,3 +109,16 @@ if __name__ == "__main__":
 
     print("===== Confusion Matrix =====")
     print(confusion_matrix(y_test, y_pred))
+
+    importances = model.feature_importances_
+    indices = np.argsort(importances)[::-1][:20]
+
+    feature_names = []
+    for i in range(FRAME_SIZE):
+        for feat in FEATURES:
+            feature_names.append(f"{feat}_{i}")
+    feature_names = np.array(feature_names)
+
+    print("\n上位の重要特徴量:")
+    for i in indices:
+        print(f"{feature_names[i]}: {importances[i]:.4f}")

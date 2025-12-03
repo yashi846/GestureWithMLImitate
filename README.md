@@ -176,6 +176,25 @@ SVM を用いて学習し、評価・最適化を行います。
 6. 探索とプルーニング
 7. ベスト設定で再学習し Classification Report と Confusion Matrix を出力
 
+### train_rf.py
+
+Random Forest を用いて学習し、評価・最適化を行います。
+
+**最適化対象:**
+
+- n_estimators : 森の中の木の数
+- max_depth : 木の最大の深さ
+- min_samples_split : 内部ノードを分割するために必要な最小サンプル数
+- min_samples_leaf : 葉ノードに必要な最小サンプル数
+
+**機能:**
+
+1. 集約済み CSV を読み込み
+2. 特徴量標準化・ラベルエンコード
+3. Random ForestとCross Validationを行う
+6. 探索とプルーニング
+7. ベスト設定で再学習し Classification Report と Confusion Matrix 、上位の特徴量を出力
+
 
 ## 開発環境
 

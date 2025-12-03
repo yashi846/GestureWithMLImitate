@@ -39,9 +39,7 @@ def check_gpu():
 DEVICE = check_gpu()
 
 
-CSV_PATH = Path(
-    "data/DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv"
-)
+CSV_PATH = Path("data/DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv")
 FEATURES = [
     "wtDoppler",
     "wtRange",

@@ -135,7 +135,7 @@ DataSet 内の各ジェスチャディレクトリの CSV ファイルを 1 つ�
 6. テストデータで精度を評価
 7. Classification Report と Confusion Matrix を出力
 
-### train_prototypical_MLP.py
+### train_prototypical_mlp.py
 
 Prototypical Networks を用いて MLP で埋め込みを学習し、評価・最適化を行います。
 
@@ -194,6 +194,31 @@ Random Forest を用いて学習し、評価・最適化を行います。
 3. Random ForestとCross Validationを行う
 6. 探索とプルーニング
 7. ベスト設定で再学習し Classification Report と Confusion Matrix 、上位の特徴量を出力
+
+### train_prototypical_lstm.py
+
+Prototypical Networks を用いて LSTM で埋め込みを学習し、評価・最適化を行います。
+
+**最適化対象:**
+
+- LSTMの隠れ層の次元数
+- LSTMの層数
+- 埋め込み次元数
+- ドロップアウト率
+- 重み減衰
+- 学習率
+- Shot数
+- クエリ数
+
+**機能:**
+
+1. 集約済み CSV を読み込み
+2. 特徴量標準化・ラベルエンコード
+3. エピソードサンプリング（N-WAY クラスから support/query 抽出）
+4. LSTM エンコーダで埋め込み生成
+5. プロトタイプ（support 平均）と距離で分類
+6. 探索とプルーニング
+7. ベスト設定で再学習し Classification Report と Confusion Matrix を出力
 
 
 ## 開発環境

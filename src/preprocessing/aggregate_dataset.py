@@ -6,12 +6,12 @@ import csv
 from pathlib import Path
 from typing import Dict, List
 
+FRAME_SIZE = 20
 
 DATASET_ROOT = Path("data/DataSet/ExtractGesture/1s")
-OUTPUT_FILE = Path("data/DataSet/Aggregated/DA_30frames_remove_none_1s.csv")
+OUTPUT_FILE = Path(f"data/DataSet/Aggregated/DA_{FRAME_SIZE}frames_remove_none_1s.csv")
 
 
-FRAME_SIZE = 30
 FEATURE_COLUMNS: List[str] = [
     "wtDoppler",
     # "wtDopplerPos",

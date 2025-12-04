@@ -16,8 +16,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import optuna
 
-
-CSV_PATH = Path("data/DataSet/Aggregated/DA_30frames_remove_none_1s.csv")
+FRAME_SIZE = 20
+CSV_PATH = Path(f"data/DataSet/Aggregated/DA_{FRAME_SIZE}frames_remove_none_1s.csv")
 FEATURES = [
     "wtDoppler",
     "wtRange",
@@ -26,7 +26,6 @@ FEATURES = [
     "wtElevMean",
     "azDoppCorr",
 ]
-FRAME_SIZE = 30
 N_TRIALS = 100
 
 

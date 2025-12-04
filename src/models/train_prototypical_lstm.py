@@ -39,8 +39,8 @@ def check_gpu():
 
 DEVICE = check_gpu()
 
-
-CSV_PATH = Path("data/DataSet/Aggregated/DA_30frames_remove_none_1s.csv")
+FRAME_SIZE = 20
+CSV_PATH = Path(f"data/DataSet/Aggregated/DA_{FRAME_SIZE}frames_remove_none_1s.csv")
 FEATURES = [
     "wtDoppler",
     "wtRange",
@@ -49,7 +49,6 @@ FEATURES = [
     "wtElevMean",
     "azDoppCorr",
 ]
-FRAME_SIZE = 30
 INPUT_DIM = len(FEATURES) * FRAME_SIZE
 FEATURE_DIM = len(FEATURES)
 

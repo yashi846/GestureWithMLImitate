@@ -17,7 +17,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import optuna
 
 
-CSV_PATH = Path("data/DataSet/Aggregated/DataSet_aggregated_demo_remove_none_1s.csv")
+CSV_PATH = Path("data/DataSet/Aggregated/DA_30frames_remove_none_1s.csv")
 FEATURES = [
     "wtDoppler",
     "wtRange",
@@ -26,7 +26,7 @@ FEATURES = [
     "wtElevMean",
     "azDoppCorr",
 ]
-FRAME_SIZE = 15
+FRAME_SIZE = 30
 N_TRIALS = 100
 
 

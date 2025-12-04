@@ -7,13 +7,13 @@ from pathlib import Path
 from typing import Dict, List
 
 
-DATASET_ROOT = Path("data/DataSet/ExtractGesture")
+DATASET_ROOT = Path("data/DataSet/ExtractGesture/1s")
 OUTPUT_FILE = Path(
-    "data/DataSet/Aggregated/DataSet_aggregated_1frame_demo_remove_none_1s.csv"
+    "data/DataSet/Aggregated/DA_30frames_remove_none_1s.csv"
 )
 
 
-FRAME_SIZE = 1
+FRAME_SIZE = 30
 FEATURE_COLUMNS: List[str] = [
     "wtDoppler",
     # "wtDopplerPos",

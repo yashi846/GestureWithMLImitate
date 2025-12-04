@@ -9,13 +9,18 @@ from pathlib import Path
 from typing import Tuple
 
 INPUT_ROOT = "data/DataSet"
-OUTPUT_ROOT = "DataSet/RemoveNone"
+OUTPUT_ROOT = "data/DataSet/ExtractGesture/2s"
 
 SUBFOLDERS = ("D2U", "L2R", "R2L", "U2D")
 WT_DOPPLER_COL = "wtDoppler"
 
+# 1s
 RANGE_MIN: float = -1.95933
 RANGE_MAX: float = 0.926441
+
+# 2s
+# RANGE_MIN: float = -3.40221
+# RANGE_MAX: float = 2.36933
 
 ENCODING = "utf-8"
 
